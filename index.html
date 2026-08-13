@@ -115,8 +115,8 @@
   .app{display:flex;flex-direction:column;height:100dvh;min-height:0;}
 
   .topbar{
-    display:flex;align-items:center;gap:2px;flex:none;height:var(--header-h);
-    padding:0 12px;border-bottom:1px solid var(--line);background:var(--surface);
+    display:flex;align-items:center;justify-content:space-between;gap:2px;flex:none;height:var(--header-h);
+    padding:0 14px;border-bottom:1px solid var(--line);background:var(--surface);
   }
   .brand{
     font-size:13px;font-weight:800;letter-spacing:-.02em;color:var(--ink);
@@ -153,11 +153,14 @@
     scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent;}
   .stage::-webkit-scrollbar{width:10px;}
   .stage::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:99px;border:3px solid var(--bg);}
-  .wrap{max-width:860px;margin:0 auto;padding:16px 22px 24px;}
+  .wrap{max-width:1180px;margin:0 auto;padding:18px 22px 22px;}
+  .panels{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start;}
+  .col-title{
+    font-size:12.5px;font-weight:800;letter-spacing:-.01em;color:var(--ink-2);
+    margin:0 0 11px;padding-left:3px;
+  }
 
-  .panel{display:none;}
-  .panel.is-active{display:block;animation:rise .28s var(--ease);}
-  @keyframes rise{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  .panel{display:block;}
 
   .hint{font-size:12px;line-height:1.65;color:var(--ink-3);margin:2px 2px 16px;}
   .hint b{color:var(--ink-2);font-weight:600;}
@@ -340,11 +343,18 @@
     box-shadow:0 -8px 24px -18px rgba(0,0,0,.18);
   }
   .dock__inner{
-    max-width:860px;margin:0 auto;
-    padding:11px 22px calc(12px + env(safe-area-inset-bottom));
+    max-width:1180px;margin:0 auto;
+    padding:11px 22px calc(11px + env(safe-area-inset-bottom));
   }
+  .dock__cols{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
   .dockset{display:flex;gap:8px;}
   .dockset[hidden]{display:none;}
+  .help-link{
+    display:flex;align-items:center;justify-content:center;gap:5px;
+    margin:9px auto 0;padding:2px 8px;background:none;border:none;cursor:pointer;
+    color:var(--ink-3);font-size:12px;font-weight:600;transition:color .16s;
+  }
+  .help-link:hover{color:var(--ink);}
   .act{
     height:46px;border-radius:var(--radius);cursor:pointer;
     font-size:13.5px;font-weight:700;letter-spacing:-.01em;
@@ -411,24 +421,22 @@
 <body>
 <div class="app">
   <div class="topbar">
-    <div class="tabs" role="tablist">
-      <button class="tab" role="tab" data-tab="backup" aria-selected="true">로그 백업</button>
-      <button class="tab" role="tab" data-tab="input" aria-selected="false">외국어 → 한국어</button>
-    </div>
-    <button class="icon-btn" id="help-btn" title="도움말" aria-label="도움말">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.2a2.8 2.8 0 0 1 5.4 1c0 1.9-2.6 2.4-2.6 4"/><path d="M12 17.4v.01"/></svg>
-    </button>
     <button class="icon-btn" id="theme-toggle" title="라이트/다크" aria-label="테마 전환">
       <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
       <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M20 14.5A8 8 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5z"/></svg>
+    </button>
+    <button class="icon-btn" id="help-btn" title="도움말" aria-label="도움말">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.2a2.8 2.8 0 0 1 5.4 1c0 1.9-2.6 2.4-2.6 4"/><path d="M12 17.4v.01"/></svg>
     </button>
   </div>
 
   <div class="stage">
     <div class="wrap">
+      <div class="panels">
 
-      <!-- ===================== 백업 도우미 ===================== -->
-      <section class="panel is-active" data-panel="backup">
+      <!-- ===================== 로그 백업 ===================== -->
+      <section class="panel" data-panel="backup">
+        <h2 class="col-title">로그 백업</h2>
 
         <div class="section">
           <div class="section__head">정리</div>
@@ -523,8 +531,9 @@
         </details>
       </section>
 
-      <!-- ===================== 입력 도우미 ===================== -->
+      <!-- ===================== 외국어 → 한국어 ===================== -->
       <section class="panel" data-panel="input">
+        <h2 class="col-title">외국어 → 한국어</h2>
 
         <div class="section">
           <div class="section__head">원문 · 번역</div>
@@ -546,24 +555,27 @@
         </div>
       </section>
 
+      </div>
     </div>
   </div>
 
   <div class="dock">
     <div class="dock__inner">
-      <div class="dockset" data-dock="backup">
-        <button class="act act--primary" id="copy-backup">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2.2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
-          HTML 복사
-        </button>
-        <button class="act act--ghost" id="clear-backup">비우기</button>
-      </div>
-      <div class="dockset" data-dock="input" hidden>
-        <button class="act act--primary" id="copy-input">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2.2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
-          복사
-        </button>
-        <button class="act act--ghost" id="clear-input">비우기</button>
+      <div class="dock__cols">
+        <div class="dockset" data-dock="backup">
+          <button class="act act--primary" id="copy-backup">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2.2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
+            HTML 복사
+          </button>
+          <button class="act act--ghost" id="clear-backup">비우기</button>
+        </div>
+        <div class="dockset" data-dock="input">
+          <button class="act act--primary" id="copy-input">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2.2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
+            복사
+          </button>
+          <button class="act act--ghost" id="clear-input">비우기</button>
+        </div>
       </div>
     </div>
   </div>
@@ -624,18 +636,6 @@
   $('theme-toggle').addEventListener('click',function(){
     setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark',true);
   });
-
-  /* ---------- 탭 ---------- */
-  function activateTab(name){
-    document.querySelectorAll('.tab').forEach(function(t){ t.setAttribute('aria-selected', t.getAttribute('data-tab')===name?'true':'false'); });
-    document.querySelectorAll('.panel').forEach(function(p){ p.classList.toggle('is-active', p.getAttribute('data-panel')===name); });
-    document.querySelectorAll('.dockset').forEach(function(d){ d.hidden = d.getAttribute('data-dock')!==name; });
-    lsSet(LS.tab,name);
-  }
-  document.querySelectorAll('.tab').forEach(function(t){
-    t.addEventListener('click',function(){ activateTab(t.getAttribute('data-tab')); });
-  });
-  (function(){ var t=lsGet(LS.tab); if(t==='input'||t==='backup') activateTab(t); })();
 
   /* ---------- 도움말 ---------- */
   var helpOv=$('help-overlay'), helpHideT=null;
