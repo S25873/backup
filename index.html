@@ -460,6 +460,7 @@
           <div class="toolgrp">
             <div class="mini-row">
               <button class="mini" data-op="star-del">* 삭제</button>
+              <button class="mini" data-op="paren-del">( ) 삭제</button>
               <button class="mini" data-op="quotes">“ ” → &quot; &quot;</button>
               <button class="mini" data-op="quotes-single">‘ ’ → ' '</button>
               <button class="mini" data-op="dots">... → ⋯</button>
@@ -606,6 +607,7 @@
     <div class="help-body">
       <div class="help-cat">백업 도우미 — 정리</div>
       <p class="hint"><b>* 삭제</b> · 남은 별표를 모두 지워요.</p>
+      <p class="hint"><b>( ) 삭제</b> · 괄호 기호 ( ) （ ）를 지워요(안쪽 글자는 유지).</p>
       <p class="hint"><b>“ ” → &quot; &quot;</b> · 휜 큰따옴표(“ ”)를 곧은 큰따옴표(&quot;)로 바꿔요.</p>
       <p class="hint"><b>‘ ’ → ' '</b> · 휜 작은따옴표(‘ ’)를 곧은 작은따옴표(')로 바꿔요.</p>
       <p class="hint"><b>... → ⋯</b> · 마침표 3개 이상과 … 을 ⋯ 로 바꿔요.</p>
@@ -864,6 +866,7 @@
     snapshot();
     var msg='';
     if(op==='star-del'){ transformTextNodes(function(s){ return s.replace(/\*/g,''); }); }
+    else if(op==='paren-del'){ transformTextNodes(function(s){ return s.replace(/[()（）]/g,''); }); }
     else if(op==='quotes'){ transformTextNodes(function(s){ return s.replace(/[\u201C\u201D]/g,'"'); }); }
     else if(op==='quotes-single'){ transformTextNodes(function(s){ return s.replace(/[\u2018\u2019]/g,"'"); }); }
     else if(op==='dots'){ transformTextNodes(function(s){ return s.replace(/\u2026/g,'\u22EF').replace(/\.{3,}/g,'\u22EF'); }); }
