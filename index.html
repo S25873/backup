@@ -123,10 +123,9 @@
     padding-right:12px;margin-right:4px;border-right:1px solid var(--line);
     white-space:nowrap;flex:none;
   }
-  .tabbar{display:none;padding:8px 14px;border-bottom:1px solid var(--line);background:var(--surface);flex:none;}
   .tabs{
-    display:grid;grid-template-columns:1fr 1fr;gap:4px;
-    height:38px;padding:3px;
+    display:none;grid-template-columns:1fr 1fr;gap:4px;
+    height:36px;padding:3px;
     background:var(--surface-2);border:1px solid var(--line);border-radius:11px;
   }
   .tab{
@@ -417,7 +416,7 @@
   }
   .toast.is-show{opacity:1;transform:translateX(-50%) translateY(0);}
   @media (max-width:760px){
-    .tabbar{display:block;}
+    .tabs{display:grid;flex:1;min-width:0;margin:0 8px;}
     .col-title{display:none;}
     .panels{grid-template-columns:1fr;}
     .panel{display:none;}
@@ -439,16 +438,13 @@
       <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
       <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M20 14.5A8 8 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5z"/></svg>
     </button>
-    <button class="icon-btn" id="help-btn" title="도움말" aria-label="도움말">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.2a2.8 2.8 0 0 1 5.4 1c0 1.9-2.6 2.4-2.6 4"/><path d="M12 17.4v.01"/></svg>
-    </button>
-  </div>
-
-  <div class="tabbar">
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" data-tab="backup" aria-selected="true">로그 백업</button>
       <button class="tab" role="tab" data-tab="input" aria-selected="false">로그 변환</button>
     </div>
+    <button class="icon-btn" id="help-btn" title="도움말" aria-label="도움말">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.2a2.8 2.8 0 0 1 5.4 1c0 1.9-2.6 2.4-2.6 4"/><path d="M12 17.4v.01"/></svg>
+    </button>
   </div>
 
   <div class="stage">
