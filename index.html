@@ -123,20 +123,19 @@
     padding-right:12px;margin-right:4px;border-right:1px solid var(--line);
     white-space:nowrap;flex:none;
   }
-  .tabs{display:flex;align-items:center;gap:2px;height:100%;min-width:0;overflow-x:auto;scrollbar-width:none;}
-  .tabs::-webkit-scrollbar{display:none;}
+  .tabs{
+    flex:1;display:grid;grid-template-columns:1fr 1fr;gap:4px;
+    height:38px;margin-right:10px;padding:3px;
+    background:var(--surface-2);border:1px solid var(--line);border-radius:11px;
+  }
   .tab{
-    appearance:none;border:none;background:transparent;cursor:pointer;flex:none;white-space:nowrap;
-    padding:0 13px;height:100%;font-size:13.5px;font-weight:600;letter-spacing:-.01em;
-    color:var(--ink-3);position:relative;transition:color .18s var(--ease);
+    appearance:none;border:none;background:transparent;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;white-space:nowrap;
+    border-radius:8px;height:100%;font-size:13px;font-weight:600;letter-spacing:-.01em;
+    color:var(--ink-3);transition:color .18s var(--ease),background .18s,box-shadow .18s;
   }
   .tab:hover{color:var(--ink-2);}
-  .tab[aria-selected="true"]{color:var(--ink);}
-  .tab[aria-selected="true"]::after{
-    content:"";position:absolute;left:11px;right:11px;bottom:-1px;height:2px;
-    background:var(--ink);border-radius:2px;
-  }
-  .topbar__spacer{flex:1;}
+  .tab[aria-selected="true"]{color:var(--ink);background:var(--surface);box-shadow:var(--shadow-1);}
   .icon-btn{
     width:36px;height:36px;flex:none;
     border:1px solid var(--line);background:var(--surface);
@@ -154,7 +153,7 @@
     scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent;}
   .stage::-webkit-scrollbar{width:10px;}
   .stage::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:99px;border:3px solid var(--bg);}
-  .wrap{max-width:860px;margin:0 auto;padding:22px 22px 28px;}
+  .wrap{max-width:860px;margin:0 auto;padding:16px 22px 24px;}
 
   .panel{display:none;}
   .panel.is-active{display:block;animation:rise .28s var(--ease);}
@@ -167,18 +166,18 @@
   .section{
     background:var(--surface);border:1px solid var(--line);
     border-radius:var(--radius-lg);box-shadow:var(--shadow-1);
-    padding:16px 16px 18px;margin-top:14px;
+    padding:13px 15px 15px;margin-top:11px;
   }
   .section:first-child{margin-top:0;}
   .section--plain{background:none;border:none;box-shadow:none;padding:0;}
   .section__head{
-    font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--ink-3);margin:0 0 13px;display:flex;align-items:center;gap:10px;
+    font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink-3);margin:0 0 10px;display:flex;align-items:center;gap:10px;
   }
   .section__head::after{content:"";flex:1;height:1px;background:var(--line);}
 
   /* 편집창 카드 — 에디터 자체가 표면(테두리는 카드가 담당) */
-  .card--editor{padding:13px 15px 14px;transition:border-color .18s var(--ease),box-shadow .18s;}
+  .card--editor{padding:11px 14px 12px;transition:border-color .18s var(--ease),box-shadow .18s;}
   .card--editor:focus-within{border-color:var(--line-strong);box-shadow:0 0 0 3px var(--accent-soft);}
 
   .label{
@@ -203,9 +202,9 @@
   .mini.is-danger:hover{background:var(--danger);border-color:var(--danger);color:#fff;}
 
   /* 강조색 스와치 */
-  .swatch-row{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;}
+  .swatch-row{display:grid;grid-template-columns:repeat(9,1fr);gap:7px;}
   .swatch{
-    position:relative;width:100%;height:34px;border-radius:10px;cursor:pointer;
+    position:relative;width:100%;height:30px;border-radius:9px;cursor:pointer;
     border:none;padding:0;background:transparent;overflow:hidden;
     box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);
     transition:transform .12s var(--ease),box-shadow .16s;
@@ -260,10 +259,10 @@
   .fold[open] > summary .fold__chevron{transform:rotate(180deg);}
   .fold[open] > summary{border-bottom:1px solid var(--line);}
   .fold__body{padding:14px;}
-  .swedit{display:grid;grid-template-columns:repeat(6,1fr);gap:12px 8px;}
+  .swedit{display:grid;grid-template-columns:repeat(9,1fr);gap:10px 7px;}
   .swcell{display:flex;flex-direction:column;align-items:center;gap:5px;margin:0;cursor:pointer;}
   .swcell__pick{
-    position:relative;width:100%;height:32px;border-radius:9px;overflow:hidden;
+    position:relative;width:100%;height:28px;border-radius:8px;overflow:hidden;
     box-shadow:inset 0 0 0 1px rgba(0,0,0,.1);transition:box-shadow .16s,transform .1s var(--ease);
   }
   .swcell:hover .swcell__pick{box-shadow:inset 0 0 0 1px rgba(0,0,0,.22);}
@@ -280,11 +279,11 @@
 
   /* ============================================================ 에디터(백업) */
   .editor{
-    min-height:262px;border:none;background:transparent;color:var(--ink);
-    padding:4px 2px 2px;font-size:15px;line-height:1.85;letter-spacing:-.005em;
+    min-height:200px;border:none;background:transparent;color:var(--ink);
+    padding:2px 2px;font-size:14px;line-height:1.72;letter-spacing:-.005em;
     outline:none;overflow-wrap:anywhere;word-break:break-word;
   }
-  .editor:empty::before{content:attr(data-ph);color:var(--ink-3);pointer-events:none;font-size:13px;}
+  .editor:empty::before{content:attr(data-ph);color:var(--ink-3);pointer-events:none;font-size:12.5px;}
   .editor .col{transition:color .12s var(--ease);}
   .editor .col[data-slot="1"]{color:var(--sw1);}
   .editor .col[data-slot="2"]{color:var(--sw2);}
@@ -316,14 +315,14 @@
 
   /* ============================================================ 입력 도우미 */
   textarea{
-    width:100%;min-height:150px;
+    width:100%;min-height:118px;
     background:var(--surface-2);border:1px solid var(--line);color:var(--ink);
-    border-radius:var(--radius-sm);padding:12px 13px;
-    font-size:14px;font-family:inherit;line-height:1.7;letter-spacing:-.01em;resize:vertical;
+    border-radius:var(--radius-sm);padding:11px 12px;
+    font-size:13.5px;font-family:inherit;line-height:1.6;letter-spacing:-.01em;resize:vertical;
     transition:border-color .18s var(--ease),background .18s,box-shadow .18s;
   }
   textarea:focus{border-color:var(--ink);background:var(--surface);outline:none;box-shadow:0 0 0 3px var(--accent-soft);}
-  textarea::placeholder{font-size:12.5px;color:var(--ink-3);}
+  textarea::placeholder{font-size:12px;color:var(--ink-3);}
   .io-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   @media (max-width:640px){ .io-grid{grid-template-columns:1fr;} }
   .outprev{
@@ -413,10 +412,9 @@
 <div class="app">
   <div class="topbar">
     <div class="tabs" role="tablist">
-      <button class="tab" role="tab" data-tab="backup" aria-selected="true">백업 도우미</button>
-      <button class="tab" role="tab" data-tab="input" aria-selected="false">입력 도우미</button>
+      <button class="tab" role="tab" data-tab="backup" aria-selected="true">로그 백업</button>
+      <button class="tab" role="tab" data-tab="input" aria-selected="false">외국어 → 한국어</button>
     </div>
-    <div class="topbar__spacer"></div>
     <button class="icon-btn" id="help-btn" title="도움말" aria-label="도움말">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M9.2 9.2a2.8 2.8 0 0 1 5.4 1c0 1.9-2.6 2.4-2.6 4"/><path d="M12 17.4v.01"/></svg>
     </button>
@@ -431,7 +429,6 @@
 
       <!-- ===================== 백업 도우미 ===================== -->
       <section class="panel is-active" data-panel="backup">
-        <p class="hint">로그를 아래 편집창에 붙여넣고 자동화 버튼으로 정리한 뒤, <b>복사</b>를 누르면 티스토리 HTML 편집기에 그대로 붙여넣을 수 있는 코드가 복사돼요. 색·기울임·줄바꿈(<b>&lt;br&gt;</b>)이 그대로 재현됩니다.</p>
 
         <div class="section">
           <div class="section__head">정리</div>
@@ -528,7 +525,6 @@
 
       <!-- ===================== 입력 도우미 ===================== -->
       <section class="panel" data-panel="input">
-        <p class="hint">외국어(원문)와 한국어(번역)를 줄 단위로 맞춰 입력하면 <b>&quot;외국어&quot;&lt;br&gt;(한국어)</b> 양식으로 복사돼요. 각 칸의 <b>같은 줄</b>끼리 짝지어집니다. 텍스트와 <b>&lt;br&gt;</b>만 복사돼요.</p>
 
         <div class="section">
           <div class="section__head">원문 · 번역</div>
