@@ -123,9 +123,10 @@
     padding-right:12px;margin-right:4px;border-right:1px solid var(--line);
     white-space:nowrap;flex:none;
   }
+  .tabbar{display:none;padding:8px 14px;border-bottom:1px solid var(--line);background:var(--surface);flex:none;}
   .tabs{
-    flex:1;display:grid;grid-template-columns:1fr 1fr;gap:4px;
-    height:38px;margin-right:10px;padding:3px;
+    display:grid;grid-template-columns:1fr 1fr;gap:4px;
+    height:38px;padding:3px;
     background:var(--surface-2);border:1px solid var(--line);border-radius:11px;
   }
   .tab{
@@ -415,6 +416,19 @@
     opacity:0;pointer-events:none;transition:opacity .2s var(--ease),transform .2s var(--ease);z-index:200;
   }
   .toast.is-show{opacity:1;transform:translateX(-50%) translateY(0);}
+  @media (max-width:760px){
+    .tabbar{display:block;}
+    .col-title{display:none;}
+    .panels{grid-template-columns:1fr;}
+    .panel{display:none;}
+    .panel.is-active{display:block;animation:rise .28s var(--ease);}
+    @keyframes rise{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+    .io-grid{grid-template-columns:1fr;}
+    .dock__cols{grid-template-columns:1fr;}
+    .dockset{display:none;}
+    .dockset.is-active{display:flex;}
+  }
+
   @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important;}}
 </style>
 </head>
@@ -430,12 +444,19 @@
     </button>
   </div>
 
+  <div class="tabbar">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-tab="backup" aria-selected="true">로그 백업</button>
+      <button class="tab" role="tab" data-tab="input" aria-selected="false">로그 변환</button>
+    </div>
+  </div>
+
   <div class="stage">
     <div class="wrap">
       <div class="panels">
 
       <!-- ===================== 로그 백업 ===================== -->
-      <section class="panel" data-panel="backup">
+      <section class="panel is-active" data-panel="backup">
         <h2 class="col-title">로그 백업</h2>
 
         <div class="section">
@@ -531,9 +552,9 @@
         </details>
       </section>
 
-      <!-- ===================== 외국어 → 한국어 ===================== -->
+      <!-- ===================== 로그 변환 ===================== -->
       <section class="panel" data-panel="input">
-        <h2 class="col-title">외국어 → 한국어</h2>
+        <h2 class="col-title">로그 변환</h2>
 
         <div class="section">
           <div class="section__head">원문 · 번역</div>
@@ -562,7 +583,7 @@
   <div class="dock">
     <div class="dock__inner">
       <div class="dock__cols">
-        <div class="dockset" data-dock="backup">
+        <div class="dockset is-active" data-dock="backup">
           <button class="act act--primary" id="copy-backup">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2.2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
             HTML 복사
@@ -636,6 +657,18 @@
   $('theme-toggle').addEventListener('click',function(){
     setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark',true);
   });
+
+  /* ---------- 탭 (모바일 전환용) ---------- */
+  function activateTab(name){
+    document.querySelectorAll('.tab').forEach(function(t){ t.setAttribute('aria-selected', t.getAttribute('data-tab')===name?'true':'false'); });
+    document.querySelectorAll('.panel').forEach(function(p){ p.classList.toggle('is-active', p.getAttribute('data-panel')===name); });
+    document.querySelectorAll('.dockset').forEach(function(d){ d.classList.toggle('is-active', d.getAttribute('data-dock')===name); });
+    lsSet(LS.tab,name);
+  }
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click',function(){ activateTab(t.getAttribute('data-tab')); });
+  });
+  (function(){ var t=lsGet(LS.tab); if(t==='input'||t==='backup') activateTab(t); })();
 
   /* ---------- 도움말 ---------- */
   var helpOv=$('help-overlay'), helpHideT=null;
