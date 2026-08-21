@@ -97,7 +97,7 @@
 
   *,*::before,*::after{box-sizing:border-box;}
   html,body{margin:0;height:100%;}
-  html{background:var(--bg);}
+  html{background:var(--bg);overflow-x:hidden;}
   :root[data-theme="light"]{color-scheme:light;}
   :root[data-theme="dark"]{color-scheme:dark;}
   body{
@@ -107,7 +107,7 @@
     line-height:1.5;
     -webkit-text-size-adjust:100%;text-size-adjust:100%;
     -webkit-font-smoothing:antialiased;
-    overscroll-behavior-y:none;
+    overscroll-behavior:none;overflow-x:hidden;max-width:100%;
     letter-spacing:-.01em;
   }
   button{font-family:inherit;}
@@ -152,7 +152,7 @@
   .icon-btn svg{width:18px;height:18px;}
 
   /* ============================================================ 스크롤 영역 */
-  .stage{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--bg);
+  .stage{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior-x:none;-webkit-overflow-scrolling:touch;background:var(--bg);
     scrollbar-width:thin;scrollbar-color:var(--line-strong) transparent;}
   .stage::-webkit-scrollbar{width:10px;}
   .stage::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:99px;border:3px solid var(--bg);}
@@ -294,7 +294,8 @@
 
   /* ============================================================ 에디터(백업) */
   .editor{
-    height:clamp(220px,40vh,340px);overflow-y:auto;
+    height:clamp(220px,40vh,340px);overflow-y:auto;overflow-x:hidden;
+    overscroll-behavior-x:none;touch-action:pan-y;max-width:100%;
     border:none;background:transparent;color:var(--ink);
     padding:2px 2px;font-size:12.5px;line-height:1.6;letter-spacing:-.005em;
     outline:none;overflow-wrap:anywhere;word-break:break-word;
